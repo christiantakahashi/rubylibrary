@@ -1,5 +1,10 @@
+  # Inicializando o array vazio,
+  # ele vai representar ao array que guardara todos livros cadastrados.
 livros = []
 
+  # Repete o programa indefinidamente, exibindo o menu de opções e
+  # lendo a escolha do usuário com o gets.chomp.strip. Só termina quando
+  # a opção "0" aciona o break.
 loop do 
   puts  "=== Biblioteca Pessoal ==="
   puts  "[1] - Cadastrar livro"
@@ -20,7 +25,11 @@ loop do
     break
   end
 
+    # Aqui o case vai executar a opção que o usuário escolheu.
   case opcao  
+  
+    # Opção 1 - cadastrar livro, pede o título, autor e ano(convertido para inteiro com to_i)
+    # monta um hash (chave e valor) com esses dados mais lido:false e o adiciona ao array livros
   when "1"
     puts  "Digite o título do livro: "
     titulo = gets.chomp
@@ -44,6 +53,9 @@ loop do
     puts "Livro cadastrado com sucesso!"
     puts  "============================="
 
+    # Opção 2 - Lista todos livros cadastrados. Se o array estiver vazio
+    # avisa que não há livros, caso contrário, percorre cada livro
+    # e implementa titulo, autor, ano e o status
   when "2"
     if livros.empty?
       puts  "=============================="
@@ -57,7 +69,9 @@ loop do
       end
     end
       
-    
+    # Opção 3 - Busca livro pelo título. Pede um trecho do título e usa o select para
+    # filtrar os livors cujo título (em mínusculas) contém o texto buscado
+    # Tem como saída os encontrados com seus dados, ou avisa que nenhum foi encontrado
   when "3"
     puts  "Digite a parte do título que deseja buscar: "
     busca = gets.chomp.downcase
@@ -76,7 +90,9 @@ loop do
       end
     end
     
-
+    # Opção 4 - Maca livro como lido. Pede o título exato e localiza o livro com find, ignorando
+    # maisuculas/minusculas. Se  achar, altera lido para true; se não,
+    # informa que não foi encontrado.
   when "4"
     puts  "Digite o título exato do livro que deseja marcar como lido: "
     titulo_busca = gets.chomp
@@ -93,7 +109,10 @@ loop do
       puts "Livro marcado como lido!"
       puts "========================="
     end
-
+  
+    # Opção 5 - Remove livro do array. Usa a mesma busca exata por título da opção 4.
+    # Se o livro existir, remove-o do array com o delete, caso contrário
+    # avisa que não foi encontrado.
   when "5"
     puts  "Digite o título do livro que deseja remover: "
     titulo_busca = gets.chomp
@@ -111,6 +130,9 @@ loop do
       puts "==========================="
     end
 
+    # Opção 6 - Ver estatísticas. Se houver livros, calcula o total, a quantidade
+    # de lidos "count" e de não lidos (total menos lidos). Também encontra o 
+    # livro mais antigo (min_by) e o mais recente(max_by) pelo ano, e exibe tudo formatado
   when "6"
     if livros.empty?
       puts "Nenhum livro cadastrado ainda."
@@ -130,6 +152,9 @@ loop do
       puts "Livro mais recente: #{mais_recente[:titulo]} (#{mais_recente[:ano]})"
       puts "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-="
     end
+
+    # Vai tratar qualquer entrada fora das opções do menu, exibindo "Opção inválida, tente novamente"
+    # e voltando ao início do loop.
   else
     puts  "Opção inválida, tente novamente."
   end
